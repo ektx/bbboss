@@ -9,8 +9,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@ektx/vc2": "^1.16.6",
     "axios": "^1.7.7",
-    "element-plus": "^2.8.6",
     "pinia": "^2.2.5",
     "vue": "^3.5.12",
     "vue-i18n": "^10.0.4",
