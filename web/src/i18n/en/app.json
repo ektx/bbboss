@@ -1,0 +1,6 @@
+{
+  "app": {
+    "hello": "hello Vue",
+    "switch-language": "Switch Language"
+  }
+}
