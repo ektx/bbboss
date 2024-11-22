@@ -10,7 +10,7 @@ export default defineConfig(({ command, mode }) => {
   return {
     envDir: 'env',
     server: {
-      port: 3080
+      port: 3020
       // proxy: {
       //   '/api': {
       //     //获取数据的服务器地址设置
