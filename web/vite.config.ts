@@ -2,6 +2,7 @@ import { defineConfig, loadEnv } from 'vite'
 import { viteMockServe } from 'vite-plugin-mock'
 import vue from '@vitejs/plugin-vue'
 import path from 'node:path'
+import { VitePWA } from 'vite-plugin-pwa'
 
 // https://vite.dev/config/
 export default defineConfig(({ command, mode }) => {
@@ -32,6 +33,33 @@ export default defineConfig(({ command, mode }) => {
       viteMockServe({
         mockPath: 'mock',
         enable: command === 'serve'
+      }),
+      VitePWA({
+        registerType: 'autoUpdate',
+        // 应用清单
+        manifest: {
+          name: '宝宝很棒',
+          short_name: '宝宝很棒',
+          description: '记录宝宝生活',
+          theme_color: '#ccc',
+          icons: [
+            {
+              src: 'logo.png',
+              sizes: '512x512',
+              type: 'image/png'
+            }
+          ]
+        },
+        // 注册ws方式
+        injectRegister: 'auto',
+        // 设置缓存资源
+        workbox: {
+          globPatterns: ['**/*.{js,css,html,ico,png,svg,json,jpg,jpeg}']
+        },
+        //dev环境也开启pwa
+        devOptions: {
+          enabled: true
+        }
       })
     ]
   }
