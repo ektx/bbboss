@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@ektx/vc2": "^1.16.6",
+    "@ektx/vc2": "^1.16.7",
     "axios": "^1.7.7",
     "pinia": "^2.2.5",
     "vue": "^3.5.12",

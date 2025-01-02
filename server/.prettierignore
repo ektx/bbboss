@@ -1,0 +1,11 @@
+.prettierignore
+readme.md
+.npmrc
+.gitlab-ci.yml
+.eslintrc.js
+**/assets/fonts/
+**/assets/images/
+**/.gitignore
+**/*.sh
+**/dist/**
+**/*.md
