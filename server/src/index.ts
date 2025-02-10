@@ -1,4 +1,6 @@
 import express, { Express, Request, Response } from 'express'
+import { urlencoded, json } from 'body-parser'
+import cors from 'cors'
 import dotenv from 'dotenv'
 import path from 'path'
 import { hello } from '@/utils'
@@ -10,6 +12,15 @@ dotenv.config({
 })
 
 const app: Express = express()
+
+app.use(cors())
+
+// parse application/x-www-form-urlencoded
+app.use(urlencoded({ extended: false }))
+
+// parse application/json
+app.use(json({ limit: '1mb' }))
+
 const port = process.env.PORT || 3000
 
 app.get('/', (req: Request, res: Response) => {

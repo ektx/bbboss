@@ -6,7 +6,17 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
+import { useRouter } from 'vue-router'
 
 const title = ref('Home')
+const router = useRouter()
+
+if (!sessionStorage.getItem('token')) {
+  router.push('/login')
+}
+
+onMounted(() => {
+  console.log('Home Mounted')
+})
 </script>

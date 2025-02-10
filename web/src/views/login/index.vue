@@ -8,7 +8,11 @@
           <vc-input v-model="formData.name" placeholder="用户" />
         </vc-form-item>
         <vc-form-item prop="name">
-          <vc-input v-model="formData.name" placeholder="密码" />
+          <vc-input
+            type="password"
+            v-model="formData.passwd"
+            placeholder="密码"
+          />
         </vc-form-item>
         <vc-form-item>
           <vc-button theme="primary" @click="onSubmit">登录</vc-button>
@@ -24,8 +28,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, reactive } from 'vue'
+import { useRouter } from 'vue-router'
 import request from '@src/api/request'
+import { login } from '@src/api/'
 import { useI18n } from 'vue-i18n'
 import type { MessageSchema, Language } from '@src/i18n/schema'
 
@@ -34,10 +40,11 @@ const { t, locale } = useI18n<{ message: MessageSchema }, Language>({})
 const onToggleLang = () => {
   locale.value = locale.value === 'en' ? 'cn' : 'en'
 }
-const formData = ref({
-  name: '',
-  passwd: ''
+const formData = reactive({
+  name: 'admin',
+  passwd: 'admin'
 })
+const router = useRouter()
 
 const onClick = () => {
   console.log('login')
@@ -47,7 +54,29 @@ const onClick = () => {
 }
 
 const onSubmit = () => {
-  console.log('login')
+  console.log('login', formData)
+  const voices = window.speechSynthesis.getVoices()
+  console.warn(voices)
+  const utterance = new SpeechSynthesisUtterance('你好呀，我是婷婷')
+  // @ts-ignore
+  // utterance.voice = voices.find((voice) => voice.name === "Microsoft Yunxi Online (Natural) - Chinese (Mainland)");
+  utterance.voice = voices.find(
+    voice =>
+      voice.name === 'Microsoft HiuMaan Online (Natural) - Chinese (Hong Kong)'
+  )
+  utterance.rate = 1.2 // 语速稍快
+  utterance.pitch = 1 // 默认音调
+  utterance.volume = 0.8 // 音量稍低
+  window.speechSynthesis.speak(utterance)
+
+  login(formData)
+    .then((res: any) => {
+      sessionStorage.setItem('token', res.token)
+      router.push('/')
+    })
+    .catch(err => {
+      console.error(err)
+    })
 }
 </script>
 

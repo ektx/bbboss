@@ -11,17 +11,15 @@ export default defineConfig(({ command, mode }) => {
   return {
     envDir: 'env',
     server: {
-      port: 3020
-      // proxy: {
-      //   '/api': {
-      //     //获取数据的服务器地址设置
-      //     target: env.VITE_SERVE,
-      //     //需要代理跨域
-      //     changeOrigin: true
-      //     //路径重写
-      //     // rewrite: (path) => path.replace(/^\/api/, ''),
-      //   }
-      // }
+      port: 3020,
+      proxy: {
+        '/api': {
+          //获取数据的服务器地址设置
+          target: 'http://localhost:3000',
+          //需要代理跨域
+          changeOrigin: true
+        }
+      }
     },
     resolve: {
       alias: {

@@ -44,15 +44,7 @@ request.interceptors.request.use(
 request.interceptors.response.use(
   res => {
     removePendingRequest(URL.parse(res.request.responseURL)?.pathname)
-
-    if (res.data.code !== 200) {
-      // // 登录失效
-      // if (res.data.code === 403) {
-      //   router.push('/login')
-      //   sessionStorage.removeItem('token')
-      //   return
-      // }
-
+    if (res.status !== 200) {
       return Promise.reject(res.data)
     } else {
       return res.data.data
